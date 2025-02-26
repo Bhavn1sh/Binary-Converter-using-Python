@@ -1,0 +1,72 @@
+print("Hello there,")
+print("Welcome to Binary converter!")
+ans = input("Press enter to continue...")
+
+def to_binary(number):
+    """Convert a number (integer or letter) to binary."""
+    if isinstance(number, int):
+        return bin(number)[2:]  
+    elif isinstance(number, str) and len(number) == 1:
+        return format(ord(number), '08b') 
+    else:
+        return "Invalid input"
+
+def to_twos_complement(binary):
+    """Convert binary to two's complement."""
+    n = len(binary)
+    complement = ''.join('1' if b == '0' else '0' for b in binary)
+    result = bin(int(complement, 2) + 1)[2:].zfill(n)
+    return result
+
+def binary_to_letter(binary):
+    """Convert a binary number to a letter."""
+    if len(binary) == 8:
+        return chr(int(binary, 2))  
+    else:
+        return "Invalid binary input"
+
+def binary_to_digit(binary):
+    """Convert binary to a digit (if possible)."""
+    if len(binary) == 8:
+        try:
+            return int(binary, 2)
+        except ValueError:
+            return "Invalid binary input"
+    else:
+        return "Invalid binary input"
+
+def main():
+    print("Choose an option:")
+    print("1. Convert a digit to binary and two's complement.")
+    print("2. Convert a letter to binary and two's complement.")
+    print("3. Convert an 8-bit binary to a letter (ASCII character).")
+    print("4. Convert an 8-bit binary to a digit.")
+    print("5. Convert a binary number to its two's complement.")
+    option = input("Enter option (1, 2, 3, 4, or 5): ").strip()
+
+    if option == '1':
+        digit = int(input("Enter a digit (0-9): ").strip())
+        print(f"Binary representation: {to_binary(digit)}")
+        print(f"Two's complement: {to_twos_complement(to_binary(digit))}")
+
+    elif option == '2':
+        letter = input("Enter a letter (a-z or A-Z): ").strip()
+        print(f"Binary representation: {to_binary(letter)}")
+        print(f"Two's complement: {to_twos_complement(to_binary(letter))}")
+
+    elif option == '3':
+        binary_input = input("Enter an 8-bit binary number: ").strip()
+        print(f"Converted letter: {binary_to_letter(binary_input)}")
+
+    elif option == '4':
+        binary_input = input("Enter an 8-bit binary number: ").strip()
+        print(f"Converted digit: {binary_to_digit(binary_input)}")
+
+    elif option == '5':
+        binary_input = input("Enter a binary number: ").strip()
+        print(f"Two's complement: {to_twos_complement(binary_input)}")
+    else:
+        print("Invalid option. Please choose a number between 1 and 5.")
+
+if __name__ == "__main__":
+    main()
