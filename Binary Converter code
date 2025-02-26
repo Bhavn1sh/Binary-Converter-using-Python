@@ -1,6 +1,4 @@
-print("Hello there,")
-print("Welcome to Binary converter!")
-ans = input("Press enter to continue...")
+import keyboard  # To capture keypress events
 
 def to_binary(number):
     """Convert a number (integer or letter) to binary."""
@@ -36,37 +34,62 @@ def binary_to_digit(binary):
         return "Invalid binary input"
 
 def main():
-    print("Choose an option:")
-    print("1. Convert a digit to binary and two's complement.")
-    print("2. Convert a letter to binary and two's complement.")
-    print("3. Convert an 8-bit binary to a letter (ASCII character).")
-    print("4. Convert an 8-bit binary to a digit.")
-    print("5. Convert a binary number to its two's complement.")
-    option = input("Enter option (1, 2, 3, 4, or 5): ").strip()
+    print("Hello there,")
+    print("Welcome to Binary converter!")
+    print("Press ESC anytime to exit.")
+    
+    while True:
+        # Check if ESC is pressed to exit
+        if keyboard.is_pressed("esc"):
+            print("Exiting the program.")
+            break
+        
+        print("\nChoose an option:")
+        print("1. Convert a digit to binary and two's complement.")
+        print("2. Convert a letter to binary and two's complement.")
+        print("3. Convert an 8-bit binary to a letter (ASCII character).")
+        print("4. Convert an 8-bit binary to a digit.")
+        print("5. Convert a binary number to its two's complement.")
+        
+        option = input("Enter option (1, 2, 3, 4, or 5): ").strip()
 
-    if option == '1':
-        digit = int(input("Enter a digit (0-9): ").strip())
-        print(f"Binary representation: {to_binary(digit)}")
-        print(f"Two's complement: {to_twos_complement(to_binary(digit))}")
+        if option == '1':
+            digit = int(input("Enter a digit (0-9): ").strip())
+            print(f"Binary representation: {to_binary(digit)}")
+            print(f"Two's complement: {to_twos_complement(to_binary(digit))}")
 
-    elif option == '2':
-        letter = input("Enter a letter (a-z or A-Z): ").strip()
-        print(f"Binary representation: {to_binary(letter)}")
-        print(f"Two's complement: {to_twos_complement(to_binary(letter))}")
+        elif option == '2':
+            letters = input("Enter a string of letters (a-z or A-Z): ").strip()
+            # Process each character in the string individually
+            for letter in letters:
+                if letter.isalpha():  # Only process alphabetic characters
+                    binary_rep = to_binary(letter)
+                    twos_comp = to_twos_complement(binary_rep)
+                    print(f"Letter: {letter}")
+                    print(f"  Binary: {binary_rep}")
+                    print(f"  Two's complement: {twos_comp}")
+                else:
+                    print(f"Skipping non-alphabetic character: {letter}")
 
-    elif option == '3':
-        binary_input = input("Enter an 8-bit binary number: ").strip()
-        print(f"Converted letter: {binary_to_letter(binary_input)}")
+        elif option == '3':
+            binary_input = input("Enter an 8-bit binary number: ").strip()
+            print(f"Converted letter: {binary_to_letter(binary_input)}")
 
-    elif option == '4':
-        binary_input = input("Enter an 8-bit binary number: ").strip()
-        print(f"Converted digit: {binary_to_digit(binary_input)}")
+        elif option == '4':
+            binary_input = input("Enter an 8-bit binary number: ").strip()
+            print(f"Converted digit: {binary_to_digit(binary_input)}")
 
-    elif option == '5':
-        binary_input = input("Enter a binary number: ").strip()
-        print(f"Two's complement: {to_twos_complement(binary_input)}")
-    else:
-        print("Invalid option. Please choose a number between 1 and 5.")
+        elif option == '5':
+            binary_input = input("Enter a binary number: ").strip()
+            print(f"Two's complement: {to_twos_complement(binary_input)}")
+        else:
+            print("Invalid option. Please choose a number between 1 and 5.")
+        
+        # Check if ESC is pressed to exit after an action
+        if keyboard.is_pressed("esc"):
+            print("Exiting the program.")
+            break
 
 if __name__ == "__main__":
     main()
+
